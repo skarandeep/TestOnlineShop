@@ -1,4 +1,4 @@
-package com.androidtest.testonlineshop
+package com.androidtest.testonlineshop.Contoller
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.androidtest.testonlineshop.DataService.categories
+import com.androidtest.testonlineshop.Category
+import com.androidtest.testonlineshop.R
 
-class categoryAdapter (var context: Context, var categories: List<Category>, val itemClick: (Category) -> Unit):
-    RecyclerView.Adapter<categoryAdapter.Holder>() {
+class CategoryAdapter (var context: Context, var categories: List<Category>, val itemClick: (Category) -> Unit):
+    RecyclerView.Adapter<CategoryAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.category_layout,parent,false)
@@ -18,7 +19,7 @@ class categoryAdapter (var context: Context, var categories: List<Category>, val
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        TODO("Not yet implemented")
+        holder?.bindCategory(categories[position], context)
     }
 
     override fun getItemCount(): Int {
@@ -30,8 +31,8 @@ class categoryAdapter (var context: Context, var categories: List<Category>, val
         val categoryImage = itemView?.findViewById<ImageView>(R.id.categoryImage)
 
         fun bindCategory (category: Category, context: Context){
-            val resourceID = context.resources.getIdentifier(category.image, "drawable",context.packageName)
-            categoryImage?.setImageResource(resourceID)
+            val resourceId = context.resources.getIdentifier(category.image, "drawable",context.packageName)
+            categoryImage?.setImageResource(resourceId)
             categoryName?.text = category.title
             itemView.setOnClickListener{itemClick(category)}
         }
